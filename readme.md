@@ -6,16 +6,17 @@ classes:
         int weight
         pure virt functions*
 
+        grayscale
+        monochrome
+        rotate <direction>
+        negative
+
         children PGM, PPM, PBM
             format - p1,p2,p3
 
     session
         id, photo*, string* (functions)
 
-        grayscale
-        monochrome
-        rotate <direction>
-        negative
         undo
         add <image>
         session info
@@ -33,6 +34,7 @@ classes:
     UI
         sesion*
         curr session index
+        
         switch <session id>
         console output
 
