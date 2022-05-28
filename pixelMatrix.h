@@ -1,6 +1,7 @@
 #ifndef _PIXELMATRIX
 #define _PIXELMATRIL
 #include <iostream>
+using namespace std;
 
 class PixelMatrix {
 private:
@@ -22,6 +23,6 @@ public:
     PixelMatrix(size_t**, size_t, size_t);
     PixelMatrix(const PixelMatrix&);
     PixelMatrix& operator=(const PixelMatrix&);
-    ~PixelMatrix(); //virtual
+    virtual ~PixelMatrix();
 };
 #endif

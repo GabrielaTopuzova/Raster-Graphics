@@ -3,6 +3,8 @@
 #include "string.h"
 #include "pixelMatrix.h"
 #include <iostream>
+#include <fstream>
+using namespace std;
 
 class Photo {
 private:
@@ -17,10 +19,13 @@ public:
     Photo();
     Photo(const String&, const PixelMatrix&);
     
-    // virtual Photo* grayscale() = 0;
-    // virtual Photo* monochrome() = 0;
-    // virtual Photo* rotate(bool) = 0;
-    // virtual Photo* negative() = 0;
-    // virtual ~Photo() = default;
+    virtual Photo* grayscale() = 0;
+    virtual Photo* monochrome() = 0;
+    virtual Photo* rotate(bool) = 0;
+    virtual Photo* negative() = 0;
+    virtual ~Photo() = default;
+
+    virtual void readFromFile(ifstream&) = 0;
+    virtual void saveToFile(ofstream&) const = 0;
 };
 #endif

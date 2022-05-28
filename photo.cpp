@@ -1,5 +1,4 @@
 #include "photo.h"
-using namespace std;
 
 const String& Photo::getName() const {
     return name;

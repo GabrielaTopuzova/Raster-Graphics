@@ -1,5 +1,4 @@
 #include "pixelMatrix.h"
-using namespace std;
 
 void PixelMatrix::copyFrom(const PixelMatrix& other) {
     height = other.height;

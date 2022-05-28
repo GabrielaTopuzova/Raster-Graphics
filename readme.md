@@ -41,4 +41,4 @@ classes:
 Notes:
     PPM -> PGM red+ / 3
     PPM -> PBM red+ / 3 > 128
-    PGM -> PBM > 128
+    PGM -> PBM > 7
