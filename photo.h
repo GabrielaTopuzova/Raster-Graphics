@@ -17,6 +17,7 @@ public:
     void setPixels(const PixelMatrix&);
 
     Photo();
+    Photo(const String&);
     Photo(const String&, const PixelMatrix&);
     
     virtual Photo* grayscale() = 0;

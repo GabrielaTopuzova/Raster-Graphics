@@ -44,6 +44,9 @@ PixelMatrix::PixelMatrix() : pixels(nullptr), height(0), width(0) {}
 PixelMatrix::PixelMatrix(size_t** pxls, size_t height, size_t width) : height(height), width(width) {
     setPixels(pxls);
 }
+PixelMatrix::PixelMatrix(const PixelMatrix& other) {
+    copyFrom(other);
+}
 PixelMatrix& PixelMatrix::operator=(const PixelMatrix& other) {
     if(this != &other) {
         free();

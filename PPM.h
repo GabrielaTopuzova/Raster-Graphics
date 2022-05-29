@@ -6,8 +6,11 @@ using namespace std;
 
 class PPM : public Photo {
     size_t white;
+    PixelMatrix redMatrix;
+    PixelMatrix greenMatrix;
+    PixelMatrix blueMatrix;
 public:
-    PPM(const String&, const PixelMatrix&, size_t);
+    PPM(const String&, size_t, const PixelMatrix&, const PixelMatrix&, const PixelMatrix&);
 
     Photo* grayscale() override;
     Photo* monochrome() override;
