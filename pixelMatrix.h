@@ -24,5 +24,8 @@ public:
     PixelMatrix(const PixelMatrix&);
     PixelMatrix& operator=(const PixelMatrix&);
     virtual ~PixelMatrix();
+
+    bool operator==(const PixelMatrix&) const;
+    bool operator!=(const PixelMatrix&) const;
 };
 #endif

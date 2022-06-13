@@ -57,3 +57,10 @@ PixelMatrix& PixelMatrix::operator=(const PixelMatrix& other) {
 PixelMatrix::~PixelMatrix() {
     free();
 }
+
+bool PixelMatrix::operator==(const PixelMatrix& other) const {
+    return height == other.height && width == other.width;
+}
+bool PixelMatrix::operator!=(const PixelMatrix& other) const {
+    return !(*this == other);
+}

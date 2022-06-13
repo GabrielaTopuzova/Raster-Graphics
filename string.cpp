@@ -43,6 +43,13 @@ String::~String() {
     free();
 }
 
+bool String::operator==(const String& other) const {
+    return strcmp(str, other.str);
+}
+bool String::operator!=(const String& other) const {
+    return !strcmp(str, other.str);
+}
+
 const char& String::operator[](size_t index) const {
     if(index < 0 || index >= strlen(str))
         throw "Invalid index!";

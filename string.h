@@ -18,6 +18,9 @@ public:
     String& operator=(const String&);
     ~String();
 
+    bool operator==(const String&) const;
+    bool operator!=(const String&) const;
+
     const char& operator[](size_t) const;
     char& operator[](size_t);
     friend istream& operator>>(istream&, String&);
