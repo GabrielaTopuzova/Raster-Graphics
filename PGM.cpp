@@ -1,6 +1,13 @@
 #include "PGM.h"
 #include "PBM.h"
 
+size_t PGM::getWhite() const {
+    return white;
+}
+short PGM::getType() const {
+    return 2;
+}
+
 PGM::PGM(const String& string, const PixelMatrix& pxls, size_t white) : Photo(string, pxls), white(white) {}
 
 Photo* PGM::grayscale() {
@@ -73,6 +80,9 @@ Photo* PGM::negative() {
     delete[] result;
 
     return new PGM(getName(), res, white);  
+}
+Photo* PGM::clone() const {
+    return new PGM(*this);
 }
 
 void PGM::readFromFile(ifstream& file) {

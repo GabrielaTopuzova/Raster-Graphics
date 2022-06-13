@@ -1,5 +1,12 @@
 #include "PBM.h"
 
+size_t PBM::getWhite() const {
+    return 1;
+}
+short PBM::getType() const {
+    return 1;
+}
+
 PBM::PBM(const String& otherName, const PixelMatrix& pxls) : Photo(otherName, pxls) {}
 
 Photo* PBM::grayscale() {
@@ -56,6 +63,9 @@ Photo* PBM::negative() {
     delete[] result;
 
     return new PBM(getName(), res);        
+}
+Photo* PBM::clone() const {
+    return new PBM(*this);
 }
 
 void PBM::readFromFile(ifstream& file) {

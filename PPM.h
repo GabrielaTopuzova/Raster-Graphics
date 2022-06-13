@@ -10,12 +10,15 @@ class PPM : public Photo {
     PixelMatrix greenMatrix;
     PixelMatrix blueMatrix;
 public:
+    size_t getWhite() const override;
+    short getType() const override;
     PPM(const String&, size_t, const PixelMatrix&, const PixelMatrix&, const PixelMatrix&);
 
     Photo* grayscale() override;
     Photo* monochrome() override;
     Photo* rotate(bool) override;
     Photo* negative() override;
+    Photo* clone() const override;
     
     void readFromFile(ifstream&) override;
     void saveToFile(ofstream&) const override;

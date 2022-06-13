@@ -20,10 +20,13 @@ public:
     Photo(const String&);
     Photo(const String&, const PixelMatrix&);
     
+    virtual size_t getWhite() const = 0;
+    virtual short getType() const = 0;
     virtual Photo* grayscale() = 0;
     virtual Photo* monochrome() = 0;
     virtual Photo* rotate(bool) = 0;
     virtual Photo* negative() = 0;
+    virtual Photo* clone() const = 0;
     virtual ~Photo() = default;
 
     virtual void readFromFile(ifstream&) = 0;

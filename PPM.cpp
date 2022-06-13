@@ -2,6 +2,13 @@
 #include "PGM.h"
 #include "PBM.h"
 
+size_t PPM::getWhite() const {
+    return white;
+}
+short PPM::getType() const {
+    return 3;
+}
+
 PPM::PPM(const String& string, size_t white, const PixelMatrix& red, const PixelMatrix& green, const PixelMatrix& blue) : 
             Photo(string), white(white), redMatrix(red), greenMatrix(green), blueMatrix(blue) {}
 
@@ -125,6 +132,9 @@ Photo* PPM::negative() {
     delete[] blue;
 
     return new PPM(getName(), white, resRed, resGreen, resBlue);
+}
+Photo* PPM::clone() const {
+    return new PPM(*this);
 }
 
 void PPM::readFromFile(ifstream& file) {
