@@ -111,13 +111,13 @@ Photo* PPM::rotate(bool direction) {
     PixelMatrix resBlue(blue, width, height);
 
     for(size_t i = 0; i < width; i++) 
-        delete[] red;
+        delete[] red[i];
     delete[] red;
     for(size_t i = 0; i < width; i++) 
-        delete[] green;
+        delete[] green[i];
     delete[] green;
     for(size_t i = 0; i < width; i++) 
-        delete[] blue;
+        delete[] blue[i];
     delete[] blue;
 
     return new PPM(getName(), white, resRed, resGreen, resBlue);
@@ -145,13 +145,13 @@ Photo* PPM::negative() {
     PixelMatrix resBlue(blue, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] red;
+        delete[] red[i];
     delete[] red;
     for(size_t i = 0; i < height; i++) 
-        delete[] green;
+        delete[] green[i];
     delete[] green;
     for(size_t i = 0; i < height; i++) 
-        delete[] blue;
+        delete[] blue[i];
     delete[] blue;
 
     return new PPM(getName(), white, resRed, resGreen, resBlue);
