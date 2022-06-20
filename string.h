@@ -30,5 +30,8 @@ public:
     void saveToFile(ofstream&) const;
 
     size_t length() const;
-};
+    bool startsWith(const String&) const;
+    bool endsWith(const String&) const;
+    size_t indexOfInterval(size_t) const;
+}; 
 #endif

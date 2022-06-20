@@ -44,10 +44,10 @@ String::~String() {
 }
 
 bool String::operator==(const String& other) const {
-    return strcmp(str, other.str);
+    return !strcmp(str, other.str);
 }
 bool String::operator!=(const String& other) const {
-    return !strcmp(str, other.str);
+    return strcmp(str, other.str);
 }
 
 const char& String::operator[](size_t index) const {
@@ -91,4 +91,38 @@ istream& operator>>(istream& stream, String& str) {
 ostream& operator<<(ostream& stream, const String& str) {
     stream << str.getStr();
     return stream;
+}
+
+bool String::startsWith(const String& other) const {
+    if(other.length() > this->length())
+        return false;
+
+    for(size_t i = 0; i < other.length(); i++)
+        if(str[i] != other.str[i])
+            return false;
+
+    return true;
+}
+
+bool String::endsWith(const String& other) const {
+    if(other.length() > this->length())
+        return false;
+
+    for(size_t i = 0; i < other.length(); i++)
+        if(str[this->length() - 1 - i] != other.str[other.length() - 1 - i])
+            return false;
+
+    return true;
+}
+
+size_t String::indexOfInterval(size_t num) const {
+    size_t count = 0;
+    for(size_t i = 0; i < this->length(); i++) {
+        if(str[i] == ' ') {
+            count++;
+        }
+        if(count == num)
+            return i;
+    }
+    return 0;
 }
