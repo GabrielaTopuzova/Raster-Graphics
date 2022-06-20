@@ -136,18 +136,3 @@ void PGM::saveToFile(ofstream& file) const {
         file << endl;
     }
 }
-
-#include"UI.h"
-int main() {
-    // try {
-    //     Session session;
-    //     PPM p = PPM("color6x6.ppm");
-    //     session.add(p);
-    //     session.collage(false, "color6x6.ppm", "color6x6.ppm", "a.ppm");
-    //     session.save();
-    // } catch (const char* err) {
-    //     cout<<err;
-    // }
-    UI ui;
-    ui.start();
-}
