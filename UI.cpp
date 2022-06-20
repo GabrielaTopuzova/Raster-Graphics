@@ -50,9 +50,9 @@ void UI::save() {
 }
 
 void UI::help() const {
-    cout << "---------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------------------" << endl;
     cout << "The following commands are supported: " << endl;
-    cout << "---------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------------------" << endl;
     cout << "open <file>        opens <file>" << endl;
     cout << "close              closes currently opened session" << endl;
     cout << "save               saves the currently open session" << endl;
@@ -66,7 +66,8 @@ void UI::help() const {
     cout << "session info       gives information about the current session" << endl;
     cout << "sessions info      gives information about all sessions" << endl;
     cout << "switch <id>        switches the current session with session N: id" << endl;
-    cout << "---------------------------------------------------------" << endl;
+    cout << "collage <direction> <photo1> <photo2> <photo3> makes collage in photo3" << endl;
+    cout << "---------------------------------------------------------------------------" << endl;
 }
 
 void UI::start() {
