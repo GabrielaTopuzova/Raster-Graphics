@@ -70,7 +70,7 @@ const Photo& Session::getPhotoByName(const String& name) const {
     for (int i = 0; i < photoCount; i++)
         if (photos[i]->getName() == name)
             return *photos[i];
-    throw "Photo does not exist";
+    throw "Photo does not exist!";
 }
 void Session::collage(bool direction, const String& photo1Name, const String& photo2Name, const String& resultPhoto) {
     const Photo& photo1 = getPhotoByName(photo1Name);
@@ -227,4 +227,8 @@ void Session::grayscale() {
     for(size_t i = 0; i < photoCount; i++) {
         photos[i] = photos[i]->grayscale();
     }
+}
+
+size_t Session::getId() const {
+    return id;
 }

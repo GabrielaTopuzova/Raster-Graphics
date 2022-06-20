@@ -25,6 +25,7 @@ public:
     void negative();
     void monochrome();
     void grayscale();
+    size_t getId() const;
     void sessionInfo() const;
     const Photo& getPhotoByName(const String& name) const;
     void collage(bool, const String&, const String&, const String&);
