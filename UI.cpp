@@ -6,10 +6,13 @@ UI::UI() {
 }
 
 void UI::switchSessions(size_t next) {
-    if (next >= sessionCount)
-        currentSessionIndex = next;
-    else
-        cout<<"Invalid session index";
+    for(size_t i = 0; i < sessionCount; i++)
+        if(sessions[i].getId() == next) {
+            currentSessionIndex = i;
+            cout<<"Successfuly switch of session"<<endl;
+            return;
+        }
+    cout<<"Invalid session index"<<endl;
 }
 
 void UI::open(const String& initialFile) {
@@ -59,52 +62,72 @@ void UI::save() {
 
 void UI::start() {
     while (true) {
-        cout<<">";
-        char buffer[1024];
-        cin.getline(buffer, 1024);
-        String bufferStr = String(buffer);
-        if (bufferStr.startsWith("exit")) {
-            break;
-        } else if(bufferStr.startsWith("close")) {
-            if (sessionCount > 0) {
-                close();
+        try{
+            cout<<">";
+            char buffer[1024];
+            cin.getline(buffer, 1024);
+            String bufferStr = String(buffer);
+            if(bufferStr.startsWith("exit")) {
+                exitProgram();
+            } else if(bufferStr.startsWith("close")) {
+                if (sessionCount > 0) {
+                    close();
+                } else {
+                    cout<<"there is no active session"<<endl;
+                }
+            } else if (bufferStr.startsWith("open ")) {
+                open(bufferStr.getStr() + 5);
+            } else if (bufferStr.startsWith("add ")) {
+                if (sessionCount > 0) {
+                    add(bufferStr.getStr() + 4);
+                } else {
+                    cout<<"there is no active session"<<endl;
+                }
+            } else if (bufferStr.startsWith("save")) {
+                if (sessionCount > 0) {
+                    save();
+                } else {
+                    cout<<"there is no active session"<<endl;
+                }
+            } else if (bufferStr.startsWith("open ")) {
+                open(bufferStr.getStr() + 5);
+            } else if (bufferStr.startsWith("session info")) {
+                sessionInfo();
+            } else if (bufferStr.startsWith("sessions info")) {
+                allSessionsInfo();
+            } else if (bufferStr.startsWith("help")) {
+                help();
+            } else if (bufferStr.startsWith("grayscale")) {
+                grayscale();
+            } else if (bufferStr.startsWith("monochrome")) {
+                monochrome();
+            } else if (bufferStr.startsWith("grayscale")) {
+                grayscale();
+            } else if (bufferStr.startsWith("negative")) {
+                negative();
+            } else if (bufferStr.startsWith("rotate left")) {
+                rotate(true);
+            } else if (bufferStr.startsWith("rotate right")) {
+                rotate(false);
+            } else if (bufferStr.startsWith("collage horizontal")) {
+                String photo1 = bufferStr.substring(bufferStr.indexOfInterval(2) + 1, bufferStr.indexOfInterval(3) - 1);
+                String photo2 = bufferStr.substring(bufferStr.indexOfInterval(3) + 1, bufferStr.indexOfInterval(4) - 1);
+                String photoRes = bufferStr.substring(bufferStr.indexOfInterval(4) + 1, bufferStr.length() - 1);
+                sessions[currentSessionIndex].collage(true, photo1, photo2, photoRes);
+            } else if (bufferStr.startsWith("collage vertical")) {
+                String photo1 = bufferStr.substring(bufferStr.indexOfInterval(2) + 1, bufferStr.indexOfInterval(3) - 1);
+                String photo2 = bufferStr.substring(bufferStr.indexOfInterval(3) + 1, bufferStr.indexOfInterval(4) - 1);
+                String photoRes = bufferStr.substring(bufferStr.indexOfInterval(4) + 1, bufferStr.length() - 1);
+                sessions[currentSessionIndex].collage(false, photo1, photo2, photoRes);
+            } else if (bufferStr.startsWith("switch")) {
+                String idStr = bufferStr.substring(bufferStr.indexOfInterval(1) + 1, bufferStr.length() - 1);
+                size_t id = atoi(idStr.getStr());
+                switchSessions(id);
             } else {
-                cout<<"there is no active session"<<endl;
-            }
-        } else if (bufferStr.startsWith("open ")) {
-            open(bufferStr.getStr() + 5);
-        } else if (bufferStr.startsWith("add ")) {
-            if (sessionCount > 0) {
-                add(bufferStr.getStr() + 4);
-            } else {
-                cout<<"there is no active session"<<endl;
-            }
-        } else if (bufferStr.startsWith("save")) {
-            if (sessionCount > 0) {
-                save();
-            } else {
-                cout<<"there is no active session"<<endl;
-            }
-        } else if (bufferStr.startsWith("open ")) {
-            open(bufferStr.getStr() + 5);
-        } else if (bufferStr.startsWith("session info")) {
-            sessionInfo();
-        } else if (bufferStr.startsWith("sessions info")) {
-            allSessionsInfo();
-        } else if (bufferStr.startsWith("help")) {
-            help();
-        } else if (bufferStr.startsWith("grayscale")) {
-            grayscale();
-        } else if (bufferStr.startsWith("monochrome")) {
-            monochrome();
-        } else if (bufferStr.startsWith("grayscale")) {
-            grayscale();
-        } else if (bufferStr.startsWith("negative")) {
-            negative();
-        } else if (bufferStr.startsWith("rotate left")) {
-            rotate(true);
-        } else if (bufferStr.startsWith("rotate right")) {
-            rotate(false);
+                cout << "No such command! Type help to see all the commands!" << endl;
+        }
+        } catch(const char* error) {
+            cout << error << endl;
         }
     }
 }
