@@ -1,5 +1,12 @@
 #include "PBM.h"
 
+size_t PBM::getHeight() const {
+    return getPixels().getHeight();
+}
+size_t PBM::getWidth() const {
+    return getPixels().getWidth();
+}
+
 size_t PBM::getWhite() const {
     return 1;
 }
@@ -7,6 +14,12 @@ short PBM::getType() const {
     return 1;
 }
 
+PBM::PBM(const String& string) : Photo(string) {
+    ifstream in(string.getStr());
+    if(!in.is_open())
+        throw "Can't open file";
+    readFromFile(in);
+}
 PBM::PBM(const String& otherName, const PixelMatrix& pxls) : Photo(otherName, pxls) {}
 
 Photo* PBM::grayscale() {
@@ -37,7 +50,7 @@ Photo* PBM::rotate(bool direction) {
     PixelMatrix res(result, width, height);
 
     for(size_t i = 0; i < width; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     return new PBM(getName(), res);
@@ -59,7 +72,7 @@ Photo* PBM::negative() {
     PixelMatrix res(result, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     return new PBM(getName(), res);        
@@ -69,6 +82,8 @@ Photo* PBM::clone() const {
 }
 
 void PBM::readFromFile(ifstream& file) {
+    char a;
+    file >> a >> a;
     size_t height = getPixels().getHeight();
     size_t width = getPixels().getWidth();
 
@@ -84,7 +99,7 @@ void PBM::readFromFile(ifstream& file) {
     PixelMatrix res(result, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     setPixels(res);    

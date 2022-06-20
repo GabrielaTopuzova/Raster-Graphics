@@ -2,6 +2,23 @@
 #include "PGM.h"
 #include "PBM.h"
 
+size_t PPM::getHeight() const {
+    return redMatrix.getHeight();
+}
+size_t PPM::getWidth() const {
+    return redMatrix.getWidth();
+}
+
+PixelMatrix PPM::getRed() const {
+    return redMatrix;
+}
+PixelMatrix PPM::getGreen() const {
+    return greenMatrix;
+}
+PixelMatrix PPM::getBlue() const {
+    return blueMatrix;
+}
+
 size_t PPM::getWhite() const {
     return white;
 }
@@ -9,6 +26,12 @@ short PPM::getType() const {
     return 3;
 }
 
+PPM::PPM(const String& string) : Photo(string) {
+    ifstream in(string.getStr());
+    if(!in.is_open())
+        throw "Can't open file";
+    readFromFile(in);
+}
 PPM::PPM(const String& string, size_t white, const PixelMatrix& red, const PixelMatrix& green, const PixelMatrix& blue) : 
             Photo(string), white(white), redMatrix(red), greenMatrix(green), blueMatrix(blue) {}
 
@@ -26,7 +49,7 @@ Photo* PPM::grayscale() {
     PixelMatrix res(result, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     return new PGM(getName(), res, white);
@@ -48,7 +71,7 @@ Photo* PPM::monochrome() {
     PixelMatrix res(result, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     return new PBM(getName(), res);
@@ -138,6 +161,9 @@ Photo* PPM::clone() const {
 }
 
 void PPM::readFromFile(ifstream& file) {
+    char a;
+    file >> a >> a;
+
     size_t height = getPixels().getHeight();
     size_t width = getPixels().getWidth();
 
@@ -153,7 +179,6 @@ void PPM::readFromFile(ifstream& file) {
         blue[i] = new size_t[width];
         for(size_t j = 0; j < width; j++) {
             file >> red[i][j] >> green[i][j] >> blue[i][j];
-            
         }
     }
     redMatrix = PixelMatrix(red, height, width);
@@ -161,13 +186,13 @@ void PPM::readFromFile(ifstream& file) {
     blueMatrix = PixelMatrix(blue, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] red;
+        delete[] red[i];
     delete[] red;
     for(size_t i = 0; i < height; i++) 
-        delete[] green;
+        delete[] green[i];
     delete[] green;
     for(size_t i = 0; i < height; i++) 
-        delete[] blue;
+        delete[] blue[i];
     delete[] blue;
 }
 void PPM::saveToFile(ofstream& file) const {

@@ -7,8 +7,11 @@ using namespace std;
 class PGM : public Photo {
     size_t white;
 public:
+    size_t getHeight() const;
+    size_t getWidth() const;
     size_t getWhite() const override;
     short getType() const override;
+    PGM(const String&);
     PGM(const String&, const PixelMatrix&, size_t);
 
     Photo* grayscale() override;

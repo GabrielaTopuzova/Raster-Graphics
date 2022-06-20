@@ -6,8 +6,11 @@ using namespace std;
 
 class PBM : public Photo {
 public:
+    size_t getHeight() const override;
+    size_t getWidth() const override;
     size_t getWhite() const override;
     short getType() const override;
+    PBM(const String&);
     PBM(const String&, const PixelMatrix&);
 
     Photo* grayscale() override;

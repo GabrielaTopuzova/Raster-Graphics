@@ -1,6 +1,13 @@
 #include "PGM.h"
 #include "PBM.h"
 
+size_t PGM::getHeight() const {
+    return getPixels().getHeight();
+}
+size_t PGM::getWidth() const {
+    return getPixels().getWidth();
+}
+
 size_t PGM::getWhite() const {
     return white;
 }
@@ -8,6 +15,12 @@ short PGM::getType() const {
     return 2;
 }
 
+PGM::PGM(const String& string) : Photo(string) {
+    ifstream in(string.getStr());
+    if(!in.is_open())
+        throw "Can't open file";
+    readFromFile(in);
+}
 PGM::PGM(const String& string, const PixelMatrix& pxls, size_t white) : Photo(string, pxls), white(white) {}
 
 Photo* PGM::grayscale() {
@@ -30,7 +43,7 @@ Photo* PGM::monochrome() {
     PixelMatrix res(result, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     return new PBM(getName(), res);
@@ -57,7 +70,7 @@ Photo* PGM::rotate(bool direction) {
     PixelMatrix res(result, width, height);
 
     for(size_t i = 0; i < width; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     return new PGM(getName(), res, white);
@@ -76,7 +89,7 @@ Photo* PGM::negative() {
     PixelMatrix res(result, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     return new PGM(getName(), res, white);  
@@ -86,6 +99,9 @@ Photo* PGM::clone() const {
 }
 
 void PGM::readFromFile(ifstream& file) {
+    char a;
+    file >> a >> a;
+
     size_t height = getPixels().getHeight();
     size_t width = getPixels().getWidth();
 
@@ -102,7 +118,7 @@ void PGM::readFromFile(ifstream& file) {
     PixelMatrix res(result, height, width);
 
     for(size_t i = 0; i < height; i++) 
-        delete[] result;
+        delete[] result[i];
     delete[] result;
 
     setPixels(res); 
@@ -121,47 +137,17 @@ void PGM::saveToFile(ofstream& file) const {
     }
 }
 
-#include"PPM.h"
+#include"UI.h"
 int main() {
-    ifstream in("mami (1).ppm");
-    char p1;
-    in >> p1 >> p1;
-    PPM original("bee.ppm", 255, PixelMatrix(), PixelMatrix(), PixelMatrix());
-    original.readFromFile(in);
-    in.close();
-
-    ofstream out1("1rotated.ppm");
-    original
-        .rotate(false)
-        ->saveToFile(out1);
-    
-    out1.close();
-    {
-        ofstream out("1copied.ppm");
-        original
-            .saveToFile(out);
-        out.close();
-    }   
-    {
-        ofstream out("1negatived.ppm");
-        original
-            .negative()
-            ->saveToFile(out);
-        out.close();
-    }    
-    {
-        ofstream out("1gray.ppm");
-        original
-            .grayscale()
-            ->negative()
-            ->saveToFile(out);
-        out.close();
-    }    
-    {
-        ofstream out("1monochrome.ppm");
-        original
-            .monochrome()
-            ->saveToFile(out);
-        out.close();
-    }    
+    // try {
+    //     Session session;
+    //     PPM p = PPM("color6x6.ppm");
+    //     session.add(p);
+    //     session.collage(false, "color6x6.ppm", "color6x6.ppm", "a.ppm");
+    //     session.save();
+    // } catch (const char* err) {
+    //     cout<<err;
+    // }
+    UI ui;
+    ui.start();
 }
