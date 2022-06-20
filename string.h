@@ -33,5 +33,6 @@ public:
     bool startsWith(const String&) const;
     bool endsWith(const String&) const;
     size_t indexOfInterval(size_t) const;
+    String substring(size_t, size_t) const;
 }; 
 #endif

@@ -126,3 +126,15 @@ size_t String::indexOfInterval(size_t num) const {
     }
     return 0;
 }
+
+String String::substring(size_t from, size_t to) const {
+    if(from > to || to >= length())
+        return "";
+    char* res = new char[to - from + 2];
+    for(size_t i = 0; i < to - from + 1; i++)
+        res[i] = str[from + i];
+    res[to - from + 1] = '\0';
+    String result = res;
+    delete[] res;
+    return result;
+}
